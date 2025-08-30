@@ -1,0 +1,27 @@
+name: Build Image
+
+on:
+  workflow_dispatch:
+    inputs:
+      message:
+        description: 'Custom message'
+        required: false
+        default: 'Hello World'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Print Hello World
+        run: |
+          echo "Hello World from workflow!"
+          echo "Custom message: ${{ github.event.inputs.message || 'Hello World' }}"
+          
+      - name: Show environment
+        run: |
+          echo "Runner: ${{ runner.os }}"
+          echo "Repository: ${{ github.repository }}"
+          echo "Branch: ${{ github.ref }}"
